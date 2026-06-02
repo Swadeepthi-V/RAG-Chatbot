@@ -162,6 +162,8 @@ The shape language is "Soft-Modern." All primary containers (cards, graphs) use 
 
 ## Screens
 
+![Stitch Screen Mockup](file:///c:/RAG%20chatbot/stitch_ui/screen.png)
+
 ### Chat Screen (`ChatScreen`)
 The main conversation screen where users query scheme facts. It maintains a clean, immersive dark environment.
 
