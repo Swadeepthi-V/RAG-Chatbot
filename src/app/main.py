@@ -2,6 +2,7 @@
 
 import os
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
@@ -16,6 +17,14 @@ app = FastAPI(
     title="Mutual Fund FAQ Assistant",
     description="A facts-only RAG chatbot providing source-backed responses for HDFC Mutual Fund schemes.",
     version="0.1.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 from scheduler import DailyScheduler
