@@ -21,11 +21,13 @@ app = FastAPI(
 from scheduler import DailyScheduler
 from compliance_gate import IngressComplianceGate
 from retriever import SemanticRetriever
+from reasoning import LLMReasoningEngine
 
 # Global singletons
 scheduler = None
 compliance_gate = None
 retriever = None
+reasoning_engine = None
 
 def trigger_ingestion():
     """Trigger the offline ingestion pipeline in a subprocess to isolate memory usage."""
@@ -42,7 +44,7 @@ def trigger_ingestion():
 @app.on_event("startup")
 def startup_event():
     """Start the daily re-indexing scheduler and initialize compliance/retrieval engines."""
-    global scheduler, compliance_gate, retriever
+    global scheduler, compliance_gate, retriever, reasoning_engine
     
     # 1. Start background scheduler
     scheduler = DailyScheduler(trigger_ingestion)
@@ -59,7 +61,8 @@ def startup_event():
     # 3. Initialize singletons (loads BGE embedding model on CPU)
     compliance_gate = IngressComplianceGate()
     retriever = SemanticRetriever(index_dir=data_dir)
-    logger.info("Compliance Gate and Semantic Retriever initialized successfully.")
+    reasoning_engine = LLMReasoningEngine()
+    logger.info("Compliance Gate, Semantic Retriever, and Reasoning Engine initialized successfully.")
 
 @app.on_event("shutdown")
 def shutdown_event():
@@ -119,9 +122,8 @@ def handle_query(req: QueryRequest) -> QueryResponse:
     try:
         search_results = retriever.retrieve(req.query, top_k=2)
         if search_results:
-            top_match = search_results[0]
-            # Phase 3 Factual placeholder answer (simply returns the top chunk text)
-            answer = f"[Retrieved Chunk]: {top_match['text']}"
+            # Generate answer using reasoning engine (incorporates Groq and Egress validations)
+            answer = reasoning_engine.generate_answer(req.query, search_results)
             return QueryResponse(
                 status="success",
                 category="factual",
