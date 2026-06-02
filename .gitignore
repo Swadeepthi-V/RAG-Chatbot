@@ -1,0 +1,29 @@
+# Environments
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Data directory (crawled data, vector indexes)
+data/
+
+# IDE files
+.vscode/
+.idea/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
