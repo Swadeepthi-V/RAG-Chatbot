@@ -40,6 +40,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Force add files since the data/ directory is in .gitignore
-          git add -f data/vector_store.index data/vector_store.meta data/chroma_db/
+          git add -f data/chroma_db/
           git commit -m "chore: auto-update daily mutual fund vector index" || echo "No changes to commit"
           git push "https://x-access-token:${{ secrets.MY_GH_PAT }}@github.com/Swadeepthi-V/RAG-Chatbot.git" HEAD:main
