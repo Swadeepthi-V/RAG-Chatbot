@@ -4,7 +4,10 @@ on:
   schedule:
     # Runs at 10:00 AM IST (which is 04:30 AM UTC) every day
     - cron: '30 4 * * *'
-  workflow_dispatch: # Allows manual trigger from the GitHub Actions UI
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build-and-push-index:
