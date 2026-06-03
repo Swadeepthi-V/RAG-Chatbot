@@ -51,14 +51,11 @@ Railway is used for the backend FastAPI container since it handles Python runtim
 ### Setup Instructions
 1. Log in to [Railway.app](https://railway.app) and create a **New Project**.
 2. Select **Deploy from GitHub repo** and choose `Swadeepthi-V/RAG-Chatbot`.
-3. In the project settings, configure the following:
+3. Railway will automatically detect the [Dockerfile](file:///c:/RAG%20chatbot/Dockerfile) at the root of the repository and use it to compile the C++ dependencies and build the container, bypassing the default Railpack builder.
+4. Keep the default settings in your Railway service dashboard:
    * **Root Directory**: `./` (leave as default)
-   * **Build Command**: Railway will auto-detect Python and execute `pip install -r requirements.txt`.
-   * **Start Command**: Set this to:
-     ```bash
-     uvicorn main:app --host 0.0.0.0 --port $PORT
-     ```
-     *(Note: This uses the `$PORT` environment variable dynamically assigned by Railway).*
+   * **Build Command**: Leave empty (handled automatically by the Dockerfile build process)
+   * **Start Command**: Leave empty (handled automatically by the Dockerfile CMD directive)
 
 ### Required Environment Variables
 Configure these variables in the **Variables** tab of your Railway service:
@@ -72,7 +69,7 @@ Configure these variables in the **Variables** tab of your Railway service:
 | `DATA_CACHE_PATH` | `./data/vector_store.index` | Path to the active database index. |
 | `INDEX_UPDATE_DATE` | `03-Jun-2026` | Default date (updated dynamically). |
 
-Once configured, Railway will deploy the backend and generate a public URL (e.g., `https://rag-chatbot-production.up.railway.app`). **Copy this URL for the frontend setup.**
+Once configured, Railway will build the Docker container and deploy the backend, generating a public URL (e.g., `https://rag-chatbot-production.up.railway.app`). **Copy this URL for the frontend setup.**
 
 ---
 
