@@ -68,6 +68,7 @@ Configure these variables in the **Variables** tab of your Railway service:
 | `GROQ_API_KEY` | `your_actual_groq_api_key` | Copy the API key from your local `.env` file. |
 | `DATA_CACHE_PATH` | `./data/vector_store.index` | Path to the active database index. |
 | `INDEX_UPDATE_DATE` | `03-Jun-2026` | Default date (updated dynamically). |
+| `DISABLE_LOCAL_SCHEDULER` | `true` | Disables the local python daemon scheduler thread, delegating to the GitHub Actions workflow. |
 
 Once configured, Railway will build the Docker container and deploy the backend, generating a public URL (e.g., `https://rag-chatbot-production.up.railway.app`). **Copy this URL for the frontend setup.**
 

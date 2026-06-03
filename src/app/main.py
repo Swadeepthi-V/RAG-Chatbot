@@ -56,8 +56,12 @@ def startup_event():
     global scheduler, compliance_gate, retriever, reasoning_engine
     
     # 1. Start background scheduler
-    scheduler = DailyScheduler(trigger_ingestion)
-    scheduler.start()
+    disable_scheduler = os.getenv("DISABLE_LOCAL_SCHEDULER", "false").lower() == "true"
+    if disable_scheduler:
+        logger.info("DailyScheduler: Local scheduler thread is disabled (using GitHub Actions scheduler).")
+    else:
+        scheduler = DailyScheduler(trigger_ingestion)
+        scheduler.start()
     
     # 2. Resolve data directory path
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
