@@ -49,7 +49,7 @@ export default function App() {
   const [corpusSize, setCorpusSize] = useState(17);
   
   const chatStreamRef = useRef(null);
-  const apiBase = "http://localhost:8000";
+  const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
   // Fetch health check on mount to get last indexed date dynamically
   useEffect(() => {
