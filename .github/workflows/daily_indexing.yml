@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MY_GH_PAT }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -40,4 +42,4 @@ jobs:
           # Force add files since the data/ directory is in .gitignore
           git add -f data/vector_store.index data/vector_store.meta data/chroma_db/
           git commit -m "chore: auto-update daily mutual fund vector index" || echo "No changes to commit"
-          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Swadeepthi-V/RAG-Chatbot.git" HEAD:main
+          git push "https://x-access-token:${{ secrets.MY_GH_PAT }}@github.com/Swadeepthi-V/RAG-Chatbot.git" HEAD:main
