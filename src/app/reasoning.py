@@ -119,14 +119,17 @@ class LLMReasoningEngine:
             
         # Format context for system prompt
         context_str = ""
-        for i, match in enumerate(search_results[:2]):  # Use top 2 chunks for context
+        for i, match in enumerate(search_results[:4]):  # Use top 4 chunks for context
             url = match.get("metadata", {}).get("source_url", "N/A")
             text = match.get("text", "")
             context_str += f"Context Chunk {i+1} (Source URL: {url}):\n{text}\n---\n"
             
         system_prompt = (
             "You are a factual Mutual Fund FAQ Assistant for HDFC Mutual Fund.\n"
-            "Answer the query strictly using the provided context chunks. Do not assume, guess, or extrapolate.\n"
+            "Answer the query strictly using the provided context chunks.\n"
+            "You may resolve common HDFC scheme name variations or abbreviations (e.g. 'HDFC Mid-Cap Fund' refers to 'HDFC Mid-Cap Opportunities Fund', and 'HDFC Large-Cap Fund' refers to 'HDFC Top 100 Fund').\n"
+            "If the user asks to share, show, or download a factsheet, document, or form, and the filename of that document is listed in the context (e.g., under 'Downloads'), state the filename and mention that it is available for download at the cited source URL.\n"
+            "Do not assume, guess, or extrapolate facts not present in the context.\n"
             "If the context does not contain the answer, reply exactly with: "
             "\"I'm sorry, but I cannot find that information in the HDFC Mutual Fund documents.\"\n"
             "Do not provide investment advice, recommendations, predictions, or subjective opinions.\n"

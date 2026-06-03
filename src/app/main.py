@@ -129,7 +129,7 @@ def handle_query(req: QueryRequest) -> QueryResponse:
         
     # 2. Route factual query to semantic retriever
     try:
-        search_results = retriever.retrieve(req.query, top_k=2)
+        search_results = retriever.retrieve(req.query, top_k=4)
         if search_results:
             # Generate answer using reasoning engine (incorporates Groq and Egress validations)
             answer = reasoning_engine.generate_answer(req.query, search_results)

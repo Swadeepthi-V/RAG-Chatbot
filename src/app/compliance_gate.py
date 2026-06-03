@@ -75,7 +75,10 @@ FACTUAL_PROTOTYPES = [
     "What is the minimum SIP amount for HDFC Gold ETF?",
     "How do I download the capital gains statement?",
     "What is the riskometer rating of HDFC Silver ETF?",
-    "What is the lock-in period of ELSS?"
+    "What is the lock-in period of ELSS?",
+    "What is the NAV of HDFC Mid-Cap Fund?",
+    "What is the Net Asset Value of HDFC Top 100 Fund?",
+    "Show current NAV for HDFC Small Cap Fund."
 ]
 
 

@@ -1,5 +1,6 @@
 import os
 import gc
+import time
 import json
 import logging
 import unittest
@@ -29,10 +30,11 @@ class TestIngestionPipeline(unittest.TestCase):
         self.test_data_dir = os.path.join(self.base_dir, "data")
         self.test_cleaned_dir = os.path.join(self.test_data_dir, "cleaned_text")
         
-        # Test paths for indexer swaps
-        self.test_index_path = os.path.join(self.test_data_dir, "test_vector_store.index")
-        self.test_meta_path = os.path.join(self.test_data_dir, "test_vector_store.meta")
-        self.test_chroma_dir = os.path.join(self.test_data_dir, "chroma_db")
+        # Test paths for indexer swaps (isolated to data/test_db to prevent overwriting production chroma_db)
+        self.test_db_dir = os.path.join(self.test_data_dir, "test_db")
+        self.test_index_path = os.path.join(self.test_db_dir, "test_vector_store.index")
+        self.test_meta_path = os.path.join(self.test_db_dir, "test_vector_store.meta")
+        self.test_chroma_dir = os.path.join(self.test_db_dir, "chroma_db")
 
     def test_recursive_splitter_boundaries(self):
         """Verify that the recursive text splitter splits on boundaries and respects chunk size constraints."""
@@ -67,12 +69,12 @@ class TestIngestionPipeline(unittest.TestCase):
             meta = chunk["metadata"]
             
             # Check scheme prefix
-            self.assertTrue(text.startswith("Scheme: HDFC Mid-Cap Fund (Direct)\nContent: "))
+            self.assertTrue(text.startswith("Scheme: HDFC Mid-Cap Opportunities Fund (also known as HDFC Mid-Cap Fund) (Direct)\nContent: "))
             # Check length ceiling
             self.assertTrue(len(text) <= 384, f"Enriched chunk exceeded 384 limit: {len(text)}")
             # Check metadata schema matching
             self.assertEqual(meta["source_file"], filename)
-            self.assertEqual(meta["scheme_name"], "HDFC Mid-Cap Fund (Direct)")
+            self.assertEqual(meta["scheme_name"], "HDFC Mid-Cap Opportunities Fund (also known as HDFC Mid-Cap Fund) (Direct)")
             self.assertEqual(meta["source_url"], "https://www.hdfcfund.com/explore/mutual-funds/hdfc-mid-cap-fund/direct")
 
     def test_embedding_service_dimensions(self):
@@ -107,7 +109,7 @@ class TestIngestionPipeline(unittest.TestCase):
             f.write(self.test_text)
             
         # Resolved output chroma db paths
-        chroma_dir = os.path.join(self.test_data_dir, "chroma_db")
+        chroma_dir = self.test_chroma_dir
         old_chroma_dir = chroma_dir + "_old"
         temp_chroma_dir = chroma_dir + "_temp"
         

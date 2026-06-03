@@ -19,11 +19,11 @@ FILENAME_TO_SCHEME = {
     "about-us.txt": "About Us",
     "downloads_forms.txt": "Downloads Portal / Request Forms",
     "contact-us_investor-relationship-officer.txt": "Contact Us / Investor Relationship Officer",
-    "explore_mutual-funds_hdfc-mid-cap-fund_direct.txt": "HDFC Mid-Cap Fund (Direct)",
-    "explore_mutual-funds_hdfc-large-cap-fund_direct.txt": "HDFC Large-Cap Fund (Direct)",
+    "explore_mutual-funds_hdfc-mid-cap-fund_direct.txt": "HDFC Mid-Cap Opportunities Fund (also known as HDFC Mid-Cap Fund) (Direct)",
+    "explore_mutual-funds_hdfc-large-cap-fund_direct.txt": "HDFC Top 100 Fund (also known as HDFC Large-Cap Fund) (Direct)",
     "explore_mutual-funds_hdfc-large-and-mid-cap-fund_direct.txt": "HDFC Large & Mid-Cap Fund (Direct)",
     "explore_mutual-funds_hdfc-small-cap-fund_direct.txt": "HDFC Small-Cap Fund (Direct)",
-    "explore_mutual-funds_hdfc-gold-etf-fund-fund_direct.txt": "HDFC Gold ETF Fund (Direct)",
+    "explore_mutual-funds_hdfc-gold-etf-fund-fund_direct.txt": "HDFC Gold ETF Fund (also known as HDFC Gold Fund) (Direct)",
     "explore_mutual-funds_hdfc-silver-etf-fund-fund_direct.txt": "HDFC Silver ETF Fund (Direct)"
 }
 

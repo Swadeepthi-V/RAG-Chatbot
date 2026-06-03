@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 # HTML tags to remove entirely (including their contents)
 UNWANTED_TAGS = [
     "script", "style", "noscript", "iframe", "svg", "form", "aside", 
-    "header", "footer", "nav", "button", "select", "option", "input"
+    "header", "footer", "nav", "select", "option", "input"
 ]
 
 # Keywords in classes or IDs that indicate boilerplate / layout grids (header, footer, cookie popups, modals)
